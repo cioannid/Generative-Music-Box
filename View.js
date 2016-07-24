@@ -1,6 +1,15 @@
 function View(canvas) {
 	this.canvas = canvas;
+	this.clicks = [];
 }
+
+View.prototype.handleClick = function(event) {
+	var view = this;
+	var x = event.offsetX;
+	var y = event.offsetY;
+	var pos = view.clicks.push({x: x, y: y, radius: 100});
+	console.log("Add a circle at", x, ", ", y);
+};
 
 View.prototype.updateDisplay = function() {
 	var view = this;
