@@ -1,6 +1,7 @@
 function View(canvas) {
 	this.canvas = canvas;
 	this.clicks = [];
+	this.frameRate = 1000 / 30;
 }
 
 View.prototype.handleClick = function(event) {
@@ -18,7 +19,9 @@ View.prototype.updateDisplay = function() {
 	context.fillStyle = 'black';
 	context.fillRect(0, 0, view.canvas.width, view.canvas.height);
 
-	view.drawCircle(context, 150, 150, 100, 1);
+	for (var i = 0; i < view.clicks.length; i++) {
+		view.drawCircle(context, view.clicks[i].x, view.clicks[i].y, view.clicks[i].radius, 1);	
+	}
 };
 
 View.prototype.drawCircle = function(context, x, y, radius, alpha) {

@@ -5,5 +5,6 @@ window.onload = function() {
 
 	canvas.addEventListener("click", view.handleClick.bind(view), false);
 
-	view.updateDisplay();
+	setInterval(view.updateDisplay.bind(view), view.frameRate);
+
 }
