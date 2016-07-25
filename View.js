@@ -2,6 +2,7 @@ function View(canvas) {
 	this.canvas = canvas;
 	this.clicks = [];
 	this.frameRate = 1000 / 30;
+	this.loopRate = 4000;
 	this.maxRadius = 80;
 }
 
@@ -10,7 +11,11 @@ View.prototype.handleClick = function(event) {
 	var x = event.offsetX;
 	var y = event.offsetY;
 	var pos = view.clicks.push({x: x, y: y, radius: 0});
-	console.log("Add a circle at", x, ", ", y);
+	
+
+	setInterval(function() {
+		view.clicks[pos - 1].radius = 0;
+	}, view.loopRate);
 };
 
 View.prototype.updateDisplay = function() {
