@@ -2,13 +2,14 @@ function View(canvas) {
 	this.canvas = canvas;
 	this.clicks = [];
 	this.frameRate = 1000 / 30;
+	this.maxRadius = 80;
 }
 
 View.prototype.handleClick = function(event) {
 	var view = this;
 	var x = event.offsetX;
 	var y = event.offsetY;
-	var pos = view.clicks.push({x: x, y: y, radius: 100});
+	var pos = view.clicks.push({x: x, y: y, radius: 0});
 	console.log("Add a circle at", x, ", ", y);
 };
 
@@ -19,8 +20,16 @@ View.prototype.updateDisplay = function() {
 	context.fillStyle = 'black';
 	context.fillRect(0, 0, view.canvas.width, view.canvas.height);
 
-	for (var i = 0; i < view.clicks.length; i++) {
-		view.drawCircle(context, view.clicks[i].x, view.clicks[i].y, view.clicks[i].radius, 1);	
+    for (var i = 0; i < view.clicks.length; i++) {
+        var circle = view.clicks[i];
+        if (circle.radius > view.maxRadius) continue;
+        circle.radius += 1;
+
+        var alpha = .7;
+        if (circle.radius > (view.maxRadius - 15)) {
+            alpha = (view.maxRadius - circle.radius) / 10;
+        }
+        view.drawCircle(context, circle.x, circle.y, circle.radius, alpha);
 	}
 };
 
