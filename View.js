@@ -11,10 +11,11 @@ View.prototype.handleClick = function(event) {
 	var x = event.offsetX;
 	var y = event.offsetY;
 	var pos = view.clicks.push({x: x, y: y, radius: 0});
-	
+	Audio.play(x % 10);
 
 	setInterval(function() {
 		view.clicks[pos - 1].radius = 0;
+		Audio.play(x % 10);
 	}, view.loopRate);
 };
 
